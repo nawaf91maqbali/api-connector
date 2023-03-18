@@ -1,0 +1,158 @@
+version: 0.28.0
+type: DeclarativeSource
+check:
+  type: CheckStream
+  stream_names:
+    - strem1
+streams:
+  - type: DeclarativeStream
+    name: strem1
+    primary_key: []
+    schema_loader:
+      type: InlineSchemaLoader
+      schema:
+        $schema: http://json-schema.org/schema#
+        properties:
+          info:
+            properties:
+              page:
+                type: integer
+              results:
+                type: integer
+              seed:
+                type: string
+              version:
+                type: string
+            type: object
+          results:
+            items:
+              properties:
+                cell:
+                  type: string
+                dob:
+                  properties:
+                    age:
+                      type: integer
+                    date:
+                      type: string
+                  type: object
+                email:
+                  type: string
+                gender:
+                  type: string
+                id:
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                location:
+                  properties:
+                    city:
+                      type: string
+                    coordinates:
+                      properties:
+                        latitude:
+                          type: string
+                        longitude:
+                          type: string
+                      type: object
+                    country:
+                      type: string
+                    postcode:
+                      type: integer
+                    state:
+                      type: string
+                    street:
+                      properties:
+                        name:
+                          type: string
+                        number:
+                          type: integer
+                      type: object
+                    timezone:
+                      properties:
+                        description:
+                          type: string
+                        offset:
+                          type: string
+                      type: object
+                  type: object
+                login:
+                  properties:
+                    md5:
+                      type: string
+                    password:
+                      type: string
+                    salt:
+                      type: string
+                    sha1:
+                      type: string
+                    sha256:
+                      type: string
+                    username:
+                      type: string
+                    uuid:
+                      type: string
+                  type: object
+                name:
+                  properties:
+                    first:
+                      type: string
+                    last:
+                      type: string
+                    title:
+                      type: string
+                  type: object
+                nat:
+                  type: string
+                phone:
+                  type: string
+                picture:
+                  properties:
+                    large:
+                      type: string
+                    medium:
+                      type: string
+                    thumbnail:
+                      type: string
+                  type: object
+                registered:
+                  properties:
+                    age:
+                      type: integer
+                    date:
+                      type: string
+                  type: object
+              type: object
+            type: array
+        type: object
+    retriever:
+      type: SimpleRetriever
+      requester:
+        type: HttpRequester
+        url_base: https://randomuser.me/api/
+        path: https://randomuser.me/api/
+        http_method: GET
+        request_parameters: {}
+        request_headers: {}
+        request_body_json: {}
+        authenticator:
+          type: NoAuth
+      record_selector:
+        type: RecordSelector
+        extractor:
+          type: DpathExtractor
+          field_path: []
+      paginator:
+        type: NoPagination
+spec:
+  connection_specification:
+    $schema: http://json-schema.org/draft-07/schema#
+    type: object
+    required: []
+    properties: {}
+    additionalProperties: true
+  documentation_url: https://example.org
+  type: Spec
